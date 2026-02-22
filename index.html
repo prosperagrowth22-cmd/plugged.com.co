@@ -911,17 +911,45 @@
             }
 
             /* --- HEADER / NAVEGACIÓN --- */
-            .header nav ul {
+            .header {
                 display: flex;
-                flex-wrap: wrap;
+                align-items: center;
                 justify-content: center;
-                padding: 0 1rem;
-                gap: 0.5rem;
+                padding: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: flex !important;
+            }
+
+            .header nav ul {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.97);
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 150;
+                padding: 0;
+                margin: 0;
+            }
+
+            .header nav ul.open {
+                display: flex;
+            }
+
+            .header nav ul li {
+                list-style: none;
             }
 
             .header nav a {
-                padding: 0.25rem 0.5rem;
-                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+                font-size: 1.4rem;
             }
 
             .logo {
@@ -1063,6 +1091,43 @@
                 margin-bottom: 2rem;
             }
         }
+        /* HAMBURGER BUTTON */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            position: fixed;
+            right: 20px;
+            top: 16px;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -1070,7 +1135,7 @@
     <section id="home-hero">
         <header class="header">
             <nav>
-                <ul>
+                <ul id="nav-menu">
                     <li><a href="#graphic-design" class="scroll-link"><strong>Graphic Design</strong></a></li>
                     <li><a href="#photography-video" class="scroll-link"><strong>Photography &amp; Video</strong></a>
                     </li>
@@ -1080,6 +1145,11 @@
                     <li><a href="#contact" class="scroll-link"><strong>Contact Us</strong></a></li>
                 </ul>
             </nav>
+            <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
 
         <h3 class="logo">
@@ -1827,7 +1897,25 @@
                     // Fallback logic handled by empty/default initializations if needed
                 }
             })();
-        </script>
+            /* ── HAMBURGER MENU ── */
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('open');
+            navMenu.classList.toggle('open');
+            document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Cerrar menú al hacer clic en cualquier link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('open');
+                navMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
 </body>
 
 </html>
