@@ -1,0 +1,1833 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugged - Digital Agency</title>
+    <meta name="description"
+        content="We design and develop to bring progressive brands to life through focused and functional identities and digital solutions.">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon-precomposed.png">
+    <link rel="stylesheet" href="css/app-v=1.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .portfolio-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .portfolio-container {
+                flex-direction: row;
+            }
+        }
+
+        /* HEADER */
+        .header {
+            background-color: transparent;
+            transition: background-color 0.4s ease;
+            filter: none !important;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+        }
+
+        .header.nav-dimmed {
+            background-color: transparent;
+            backdrop-filter: none;
+        }
+
+        .header nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        .header nav a.active {
+            color: #fff;
+        }
+
+        .header.nav-dimmed nav a {
+            color: #aaa;
+        }
+
+        .header.nav-dimmed nav a.active,
+        .header.nav-dimmed nav a:hover {
+            color: #fff;
+        }
+
+        header.header nav {
+            transition: opacity 0.4s ease-out;
+        }
+
+        /* GRAPHIC DESIGN SECTION */
+        section#graphic-design {
+            background-color: #000;
+            color: #fff;
+        }
+
+        #left-column {
+            width: 100%;
+        }
+
+        #left-column h1,
+        #left-column h2,
+        #left-column h4 {
+            color: #fff;
+        }
+
+        #left-column p {
+            color: #d1d5db;
+        }
+
+        #left-column .flex-wrap span {
+            background-color: #374151;
+            color: #e5e7eb;
+        }
+
+        #gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-expanded-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+        }
+
+        .project-expanded-view.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .project-expanded-view .content-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            cursor: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .project-expanded-view img {
+            position: relative;
+            border-radius: 0.5rem;
+            transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            z-index: 101;
+            width: auto;
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .project-expanded-view .description-content {
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+            text-align: center;
+        }
+
+        .project-expanded-view.visible .description-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-expanded-view .description-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .project-expanded-view .description-content p {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-expanded-view .description-content span {
+            background-color: #374151;
+            color: #e5e7eb;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* PHOTOGRAPHY & VIDEO SECTION */
+        .photography-video-section {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .slideshow-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .slideshow-background img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 4s ease-out;
+            transform: scale(1.05);
+        }
+
+        .slideshow-background img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slideshow-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .project-overlay-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 800px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .project-overlay-content:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .expanded-photography-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 150;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .expanded-photography-grid.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0s linear 0s;
+        }
+
+        .close-expanded-grid-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 151;
+            transition: transform 0.2s ease;
+        }
+
+        .close-expanded-grid-button:hover {
+            transform: scale(1.1);
+        }
+
+        .photography-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 3rem;
+        }
+
+        .photography-grid .grid-item {
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .expanded-photography-grid.active .photography-grid .grid-item {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .photography-grid .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-nav-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            transform: translateY(-50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .photo-nav-arrows .arrow {
+            pointer-events: all;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .photo-nav-arrows .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .expanded-photo-item-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 160;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+        }
+
+        .expanded-photo-item-view.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s ease, visibility 0s linear 0s;
+        }
+
+        .expanded-photo-item-view img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .expanded-photo-item-view.active img {
+            transform: scale(1);
+        }
+
+        .close-expanded-photo-item-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 161;
+            transition: transform 0.2s ease;
+        }
+
+        .close-expanded-photo-item-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* APP & SOFTWARE DEV SECTION */
+        .app-dev-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .app-dev-section {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .project-list-column {
+            flex: 1;
+            padding: 0 2rem;
+            max-width: 600px;
+        }
+
+        .project-list-column h2 {
+            text-align: center;
+        }
+
+        .snake-game-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .game-wrapper {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .game-wrapper .game-title {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .game-wrapper .game-subtitle {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        #snake-canvas {
+            background-color: #000;
+            border: 2px solid #fff;
+            border-radius: 20px;
+        }
+
+        .game-wrapper:-webkit-full-screen {
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-wrapper:fullscreen {
+            background-color: #000;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-wrapper:fullscreen #snake-canvas {
+            width: 90vh;
+            height: 90vh;
+            max-width: 90vw;
+            border: none;
+        }
+
+        .game-wrapper:-webkit-full-screen #snake-canvas {
+            width: 90vh;
+            height: 90vh;
+            max-width: 90vw;
+            border: none;
+        }
+
+        #app-icon-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .app-icon {
+            aspect-ratio: 1 / 1;
+            background-color: #222;
+            border-radius: 25%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #333;
+        }
+
+        .app-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #app-slideshow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+        }
+
+        #app-slideshow-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #slideshow-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        #slideshow-image.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .close-slideshow-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 201;
+        }
+
+        .slideshow-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slideshow-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .slideshow-arrow.prev {
+            left: 20px;
+        }
+
+        .slideshow-arrow.next {
+            right: 20px;
+        }
+
+        .game-area-with-score {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .game-score-container {
+            margin-left: 2rem;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            color: #fff;
+        }
+
+        .game-score-container p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-score-container span {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        /* DIGITAL MARKETING SECTION */
+        .dm-section {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .dm-container {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            max-width: 1400px;
+        }
+
+        .dm-node {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: 600;
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+        }
+
+        .dm-node.level-0 {
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            color: #000;
+            top: 50%;
+            left: 50%;
+            margin-left: -100px;
+            margin-top: -100px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            z-index: 10;
+            cursor: pointer;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .dm-node.level-1 {
+            width: 140px;
+            height: 140px;
+            background-color: #333;
+            font-size: 1rem;
+            z-index: 9;
+        }
+
+        .dm-node.level-2 {
+            width: 110px;
+            height: 110px;
+            background-color: #222;
+            font-size: 0.9rem;
+            z-index: 8;
+        }
+
+        .dm-node.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .dm-node.floating {
+            animation: float 5s ease-in-out infinite alternate;
+        }
+
+        .dm-node:hover {
+            z-index: 20 !important;
+        }
+
+        .dm-branch,
+        .dm-sub-branch {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+        #branch-1 {
+            transform: rotate(45deg);
+        }
+
+        #branch-2 {
+            transform: rotate(135deg);
+        }
+
+        #branch-3 {
+            transform: rotate(225deg);
+        }
+
+        #branch-4 {
+            transform: rotate(315deg);
+        }
+
+        #branch-1 .level-1,
+        #branch-2 .level-1,
+        #branch-3 .level-1,
+        #branch-4 .level-1 {
+            top: -270px;
+            left: -70px;
+        }
+
+        .dm-sub-branch .dm-node.level-2:nth-of-type(2) {
+            top: -420px;
+            left: -125px;
+        }
+
+        .dm-sub-branch .dm-node.level-2:nth-of-type(4) {
+            top: -420px;
+            left: 15px;
+        }
+
+        .dm-connector {
+            position: absolute;
+            background: repeating-linear-gradient(to bottom, #444, #444 4px, transparent 4px, transparent 12px);
+            transform-origin: top center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 7;
+        }
+
+        .dm-branch>.dm-connector {
+            width: 3px;
+            height: 200px;
+            top: -200px;
+            left: -1.5px;
+        }
+
+        .dm-sub-branch>.dm-connector:nth-of-type(1) {
+            width: 2px;
+            height: 100px;
+            top: -350px;
+            left: -45px;
+            transform: rotate(-35deg);
+        }
+
+        .dm-sub-branch>.dm-connector:nth-of-type(3) {
+            width: 2px;
+            height: 100px;
+            top: -350px;
+            left: 40px;
+            transform: rotate(35deg);
+        }
+
+        .dm-connector.visible {
+            opacity: 1;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(-8px);
+            }
+
+            to {
+                translateY(8px);
+            }
+        }
+
+        #dm-global-tooltip {
+            position: fixed;
+            background-color: #fff;
+            color: #000;
+            padding: 0.8rem 1rem;
+            border: 2px dotted #000;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            width: 220px;
+            text-align: left;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 999;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+        }
+
+        #dm-global-tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .node-content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        #branch-1 .node-content-wrapper {
+            transform: rotate(-45deg);
+        }
+
+        #branch-2 .node-content-wrapper {
+            transform: rotate(-135deg);
+        }
+
+        #branch-3 .node-content-wrapper {
+            transform: rotate(-225deg);
+        }
+
+        #branch-4 .node-content-wrapper {
+            transform: rotate(-315deg);
+        }
+
+
+        .header.header-hidden {
+            opacity: 0;
+            pointer-events: none;
+            /* Evita que se pueda hacer clic en el header oculto */
+            transition: opacity 0.4s ease;
+        }
+
+        /* ======================================================= */
+        /* ==   ESTILOS PARA RESPONSIVIDAD EN MÓVILES           == */
+        /* ======================================================= */
+        @media (max-width: 768px) {
+
+            /* --- AJUSTES GENERALES --- */
+            h1,
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+
+            h2,
+            .text-4xl {
+                font-size: 2rem;
+            }
+
+            section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            /* --- HEADER / NAVEGACIÓN --- */
+            .header nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 0 1rem;
+                gap: 0.5rem;
+            }
+
+            .header nav a {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .logo {
+                transform: scale(0.8);
+                top: 15px !important;
+            }
+
+            /* --- SECCIÓN GRAPHIC DESIGN --- */
+            #left-column {
+                min-height: auto;
+                padding: 2rem 1rem;
+            }
+
+            #gallery-grid {
+                /* Se ajusta de 4 a 2 columnas en móviles */
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            /* --- SECCIÓN PHOTOGRAPHY & VIDEO --- */
+            .project-overlay-content {
+                padding: 1.5rem;
+            }
+
+            #photo-project-title {
+                font-size: 2.25rem;
+                /* Reducido desde 5xl */
+            }
+
+            #photo-project-description {
+                font-size: 1rem;
+            }
+
+            /* --- SECCIÓN APP & SOFTWARE DEV --- */
+            .app-dev-section {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+
+            #app-icon-grid {
+                /* Se ajusta de 5 a 3 columnas en móviles */
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .project-list-column {
+                padding: 0;
+            }
+
+            .snake-game-column {
+                margin-top: 3rem;
+                width: 100%;
+            }
+
+            #snake-canvas {
+                /* Se hace el canvas responsive para que quepa en la pantalla */
+                width: 100%;
+                max-width: 300px;
+                /* Límite para que no sea tan grande */
+                height: auto;
+                border-radius: 15px;
+            }
+
+            .game-score-container {
+                margin-left: 1rem;
+            }
+
+            .game-score-container span {
+                font-size: 2rem;
+            }
+
+            /* --- SECCIÓN DIGITAL MARKETING --- */
+            /* Rediseño completo a una lista vertical para móviles */
+            .dm-section {
+                height: auto;
+                padding: 4rem 1rem;
+            }
+
+            .dm-container {
+                position: static;
+                height: auto;
+                width: 100%;
+            }
+
+            .dm-branch,
+            .dm-sub-branch,
+            .dm-connector {
+                /* Se ocultan los elementos de la animación */
+                display: none;
+            }
+
+            .dm-node {
+                position: static;
+                display: block;
+                transform: none !important;
+                opacity: 1 !important;
+                width: 100%;
+                height: auto;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin: 0 auto 1rem;
+                text-align: center;
+                animation: none;
+            }
+
+            .dm-node.level-0 {
+                font-size: 1.5rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+                background-color: #fff;
+                color: #000;
+            }
+
+            .dm-node.level-1 {
+                font-size: 1.1rem;
+                padding: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .dm-node.level-2 {
+                font-size: 1rem;
+                background-color: #222;
+                padding: 1rem;
+                margin-left: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .node-content-wrapper {
+                transform: none !important;
+            }
+
+            /* --- SECCIÓN DE CONTACTO --- */
+            .contact-section {
+                padding: 4rem 1rem;
+            }
+
+            .contact-container .section-title {
+                font-size: 2.25rem;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <section id="home-hero">
+        <header class="header">
+            <nav>
+                <ul>
+                    <li><a href="#graphic-design" class="scroll-link"><strong>Graphic Design</strong></a></li>
+                    <li><a href="#photography-video" class="scroll-link"><strong>Photography &amp; Video</strong></a>
+                    </li>
+                    <li><a href="#app-software" class="scroll-link"><strong>App and Software Development</strong></a>
+                    </li>
+                    <li><a href="#digital-marketing" class="scroll-link"><strong>Digital Marketing</strong></a></li>
+                    <li><a href="#contact" class="scroll-link"><strong>Contact Us</strong></a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <h3 class="logo">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="heydays-logo" viewBox="0 0 128 864.8"
+                aria-label="Heydays" xml:space="preserve"
+                style="filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25)) drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+                <style type="text/css">
+                    .st0 {
+                        fill: #FFFFFF;
+                    }
+                </style>
+                <path class="st0"
+                    d="M63,121.7v8.8c0,12.9-10.5,23.4-23.4,23.4c-12.9,0-23.4-10.5-23.4-23.4v-15.3c5-1.6,8.5-6.2,8.5-11.7l0-3.8 c0-1.9,0-3.7,0-3.8l0-1.5l-2.9,0v-4.2c0-2-1.6-3.7-3.6-3.7c0,0,0,0,0,0c-1,0-1.9,0.4-2.6,1.1c-0.7,0.7-1.1,1.6-1.1,2.6l0,4.2 l-3.9,0v-4.2c0-2-1.6-3.7-3.6-3.7c-1,0-1.9,0.4-2.6,1.1c-0.7,0.7-1.1,1.6-1.1,2.6l0,4.1l-3.2,0l0,1.5c0,0.1,0,7.5,0,7.6 c0,4.8,2.8,9.1,7,11.2c0,0,0,0.1,0,0.1v15.9C7,148.4,21.6,163,39.6,163c18,0,32.6-14.6,32.6-32.6v-8.7 C69.7,122,66.4,122.2,63,121.7z" />
+                <path class="st0"
+                    d="M67.3,0C36,0,10,24.2,8,55.1c0,0,0,0,0,0c-4.7,1.8-8,6.3-8,11.6v0.5c0,1.7,0,7.1,0,7.1l0.1,0.2l3.1,0l0-4.2 c0-1,0.4-1.9,1.1-2.6c0.7-0.7,1.6-1.1,2.6-1.1c2,0,3.6,1.7,3.6,3.7l0,4.2l3.9,0l0-4.2c0-1,0.4-1.9,1.1-2.6 c0.7-0.7,1.6-1.1,2.6-1.1c0,0,0,0,0,0c2,0,3.6,1.7,3.6,3.7l0,4.2l3,0l0.1-8c0-5.2-3.1-9.6-7.7-11.5c1.9-25.8,23.8-46,50.1-46 c27.7,0,50.2,22.5,50.2,50.2c0,24.4-17.5,44.8-40.6,49.3v0c-13.3,2.8-19.7-1.1-19.7-1.1l0,0c-9.7-4.1-16.5-13.6-16.5-24.8 c0-13.3,9.6-24.3,22.3-26.5v49.4c3.1,0.7,6.5,0.7,9.2,0.4V51.3c0-2.5-2-4.6-4.6-4.6c-19.9,0-36,16.2-36,36 c0,18.1,13.4,33.1,30.7,35.6c2.5,0.3,6.3,0.5,11.1,0.1c0.2,0,0.5,0,0.7-0.1c0.4,0,0.9-0.1,1.3-0.2c28.9-4,51.2-28.8,51.2-58.8 C126.7,26.6,100,0,67.3,0z" />
+            </svg>
+        </h3>
+
+        <div class="graphic-container">
+            <div class="slider">
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_01.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_02.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_03.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_04.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_05.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_06.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_07.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_08.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_09.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_010.jpg"></div>
+                </div>
+                <div class="slide">
+                    <div class="image lazyload lazyhide" data-bg="images/gallery/plugged_011.jpg"></div>
+                </div>
+            </div>
+        </div>
+
+        <section id="graphic-design" class="full-section">
+            <div class="portfolio-container">
+                <aside id="left-column"
+                    class="w-full md:w-1/3 lg:w-1/4 p-8 md:p-12 flex flex-col justify-center min-h-[40vh] md:min-h-screen md:sticky top-0">
+                    <div id="content-container"></div>
+                </aside>
+                <main id="right-column" class="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12">
+                    <div id="gallery-grid" class="gallery-grid"></div>
+                </main>
+            </div>
+        </section>
+
+        <section id="photography-video" class="full-section photography-video-section">
+            <div class="slideshow-background"></div>
+            <div class="project-overlay-content">
+                <h2 id="photo-project-title" class="text-5xl font-bold mb-4 text-white"></h2>
+                <p id="photo-project-description" class="text-xl text-gray-300 mb-8"></p>
+                <button id="view-project-button"
+                    class="bg-white text-black px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition-colors duration-300">Ver
+                    Proyecto</button>
+            </div>
+            <div class="photo-nav-arrows">
+                <button id="prev-photo-project" class="arrow prev-arrow">&lt;</button>
+                <button id="next-photo-project" class="arrow next-arrow">&gt;</button>
+            </div>
+            <div id="photography-grid-expanded-view" class="expanded-photography-grid">
+                <button class="close-expanded-grid-button">✕</button>
+                <div class="photography-grid"></div>
+            </div>
+        </section>
+
+        <section id="app-software" class="full-section app-dev-section">
+            <div class="project-list-column">
+                <h2 class="text-5xl font-bold mb-8 text-white">Nuestro Portafolio de Apps</h2>
+                <div id="app-icon-grid"></div>
+            </div>
+            <div class="snake-game-column">
+                <div class="game-area-with-score">
+                    <div class="game-wrapper">
+                        <p class="game-title">Check Our Portfolio</p>
+                        <canvas id="snake-canvas" width="400" height="400"></canvas>
+                        <p id="fullscreen-btn" class="game-subtitle" style="cursor: pointer;">Play Full Screen</p>
+                    </div>
+                    <div class="game-score-container">
+                        <p>SCORE</p>
+                        <span id="snake-score-display">0</span>
+                    </div>
+                </div>
+            </div>
+            <div id="app-slideshow-overlay">
+                <button class="close-slideshow-btn">✕</button>
+                <div class="slideshow-container">
+                    <img id="slideshow-image" src="" alt="App Screenshot">
+                    <button class="slideshow-arrow prev">&lt;</button>
+                    <button class="slideshow-arrow next">&gt;</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="digital-marketing" class="full-section dm-section">
+            <div class="dm-container">
+                <div class="dm-node level-0" id="dm-center-trigger"
+                    data-definition="El conjunto de estrategias para promocionar una marca en internet.">
+                    <span>DIGITAL<br>MARKETING</span>
+                </div>
+                <div class="dm-branch" id="branch-1">
+                    <div class="dm-connector"></div>
+                    <div class="dm-node level-1"
+                        data-definition="Atrae tráfico de calidad a tu web a través de buscadores como Google.">
+                        <div class="node-content-wrapper">
+                            <span>Search Engine<br>Marketing</span>
+                        </div>
+                    </div>
+                    <div class="dm-sub-branch">
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Optimización para que tu web aparezca de forma orgánica (gratis) en los primeros resultados.">
+                            <div class="node-content-wrapper">
+                                <span>SEO</span>
+                            </div>
+                        </div>
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Publicidad de pago por clic para aparecer instantáneamente en los resultados de búsqueda.">
+                            <div class="node-content-wrapper">
+                                <span>PPC (Adwords)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dm-branch" id="branch-2">
+                    <div class="dm-connector"></div>
+                    <div class="dm-node level-1"
+                        data-definition="Construye una comunidad y comunica el valor de tu marca a través de contenido relevante.">
+                        <div class="node-content-wrapper">
+                            <span>Social Media &<br>Content</span>
+                        </div>
+                    </div>
+                    <div class="dm-sub-branch">
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Gestión de redes sociales para conectar con tu audiencia y fortalecer tu marca.">
+                            <div class="node-content-wrapper">
+                                <span>Social Media</span>
+                            </div>
+                        </div>
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Uso de video para enganchar, educar y convertir a tu público.">
+                            <div class="node-content-wrapper">
+                                <span>Video Marketing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dm-branch" id="branch-3">
+                    <div class="dm-connector"></div>
+                    <div class="dm-node level-1"
+                        data-definition="Mide, analiza y optimiza todas tus acciones de marketing para maximizar resultados.">
+                        <div class="node-content-wrapper">
+                            <span>Analytics &amp;<br>Data</span>
+                        </div>
+                    </div>
+                    <div class="dm-sub-branch">
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Herramienta clave para entender el comportamiento de los usuarios en tu sitio web.">
+                            <div class="node-content-wrapper">
+                                <span>Google Analytics</span>
+                            </div>
+                        </div>
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Análisis de grandes volúmenes de datos para encontrar patrones y oportunidades.">
+                            <div class="node-content-wrapper">
+                                <span>Data Mining</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dm-branch" id="branch-4">
+                    <div class="dm-connector"></div>
+                    <div class="dm-node level-1"
+                        data-definition="Gestiona relaciones con clientes y expande tu alcance para generar nuevas oportunidades.">
+                        <div class="node-content-wrapper">
+                            <span>CRM &amp;<br>Outreach</span>
+                        </div>
+                    </div>
+                    <div class="dm-sub-branch">
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Software para la gestión de la relación con los clientes, desde el primer contacto hasta la post-venta.">
+                            <div class="node-content-wrapper">
+                                <span>CRM</span>
+                            </div>
+                        </div>
+                        <div class="dm-connector"></div>
+                        <div class="dm-node level-2"
+                            data-definition="Estrategia para conseguir que otras webs enlacen a la tuya, mejorando tu autoridad y SEO.">
+                            <div class="node-content-wrapper">
+                                <span>Link Building</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="contact" class="full-section contact-section">
+            <div class="contact-container">
+                <h2 class="section-title">Contact Us</h2>
+
+                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contact-form">
+                    <input type="hidden" name="access_key" value="7c9c0c16-efc6-4e7b-84b3-7134d13b9491">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder=" ">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required placeholder=" ">
+                        <label for="email">E-mail</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="source" name="source" required>
+                            <option value="" disabled selected hidden></option>
+                            <option value="Google">Google</option>
+                            <option value="Redes Sociales">Redes Sociales</option>
+                            <option value="Recomendación">Recomendación</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <label for="source">¿Por qué medio nos encontró?</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder=" ">
+                        <label for="phone">Phone Number (Optional)</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comments" name="comments" rows="4" required placeholder=" "></textarea>
+                        <label for="comments">Comments</label>
+                    </div>
+                    <button type="submit" class="send-button">Send</button>
+                </form>
+            </div>
+        </footer>
+
+        </div>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="js/min/app-min-v=1.js"></script>
+        <script>
+            // --- TODOS LOS SCRIPTS DE LAS SECCIONES ---
+            document.addEventListener('DOMContentLoaded', () => {
+
+                // --- SCRIPT DE NAVEGACIÓN PRINCIPAL (CORREGIDO) ---
+                (() => {
+                    const header = document.querySelector('header.header');
+                    const nav = document.querySelector('header.header nav');
+                    const navLinks = Array.from(document.querySelectorAll('header.header nav a'));
+                    const sections = Array.from(document.querySelectorAll('.full-section'));
+                    const logo = document.querySelector('h3.logo');
+
+                    if (!header || !logo || !nav || navLinks.length === 0 || sections.length === 0) return;
+
+                    function updateActive() {
+                        const centerY = window.scrollY + window.innerHeight / 2;
+                        let activeId = null;
+                        sections.forEach(sec => {
+                            const top = sec.offsetTop;
+                            const bottom = top + sec.offsetHeight;
+                            if (centerY >= top && centerY < bottom) activeId = sec.id;
+                        });
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href') || '';
+                            link.classList.toggle('active', href === `#${activeId}`);
+                        });
+                        header.classList.toggle('nav-dimmed', !!activeId);
+
+                        if (sections.length > 0 && sections[0].offsetTop) {
+                            logo.classList.toggle('hidden', (window.scrollY + window.innerHeight / 2 >= sections[0].offsetTop));
+                        }
+                    }
+
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const target = document.querySelector(link.getAttribute('href'));
+                            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        });
+                    });
+
+                    window.addEventListener('scroll', updateActive, { passive: true });
+                    window.addEventListener('resize', updateActive);
+                    updateActive();
+                })();
+
+                // --- SCRIPT PARA GALERÍA DE GRAPHIC DESIGN ---
+                let loadGraphicDesign = () => { };
+                (() => {
+                    let projects = [];
+                    loadGraphicDesign = (data) => {
+                        projects = data.projects;
+                        document.querySelector('#graphic-design .text-4xl').textContent = data.title;
+                        document.querySelector('#graphic-design .leading-relaxed').textContent = data.description;
+                        renderGallery();
+                    };
+                    const galleryGrid = document.getElementById('gallery-grid');
+                    const contentContainer = document.getElementById('content-container');
+                    if (!galleryGrid || !contentContainer) return;
+                    const initialContentHTML = `<div class="content-transition"><h1 class="text-4xl font-bold mb-4">Diseño Gráfico</h1><p class="leading-relaxed">Una selección de proyectos de identidad visual, branding y diseño digital. Pasa el cursor sobre un proyecto para ver su descripción o haz clic para conocer todos los detalles.</p></div>`;
+                    function renderGallery() { galleryGrid.innerHTML = projects.map(p => `<div class="gallery-item" data-id="${p.id}"><img src="${p.thumbnailUrl}" alt="${p.client}" loading="lazy"></div>`).join(''); }
+                    function updateContent(projectId) {
+                        const project = projects.find(p => p.id === projectId);
+                        contentContainer.innerHTML = project ? `<div class="content-transition"><h2 class="text-3xl font-bold">${project.client}</h2><p class="text-gray-500 mb-4">${project.year}</p><p class="leading-relaxed">${project.description}</p></div>` : initialContentHTML;
+                    }
+                    function handleGridClick(e) {
+                        const item = e.target.closest('.gallery-item');
+                        if (!item) return;
+                        const project = projects.find(p => p.id === item.dataset.id);
+                        if (!project) return;
+                        const thumbImage = item.querySelector('img');
+                        const startRect = thumbImage.getBoundingClientRect();
+                        const expandedView = document.createElement('div');
+                        expandedView.className = 'project-expanded-view';
+                        expandedView.innerHTML = `<div class="content-wrapper"><img src="${thumbImage.src}"><div class="description-content"><h3>${project.client} (${project.year})</h3><p>${project.description}</p><div class="flex flex-wrap gap-2">${project.services.map(s => `<span>${s}</span>`).join('')}</div></div></div>`;
+                        document.body.appendChild(expandedView);
+                        const animatedImage = expandedView.querySelector('img');
+                        animatedImage.style.position = 'fixed';
+                        animatedImage.style.top = `${startRect.top}px`; animatedImage.style.left = `${startRect.left}px`; animatedImage.style.width = `${startRect.width}px`; animatedImage.style.height = `${startRect.height}px`;
+                        requestAnimationFrame(() => {
+                            expandedView.classList.add('visible');
+                            animatedImage.style.position = 'relative';
+                            animatedImage.style.top = ''; animatedImage.style.left = ''; animatedImage.style.width = ''; animatedImage.style.height = '';
+                        });
+                        expandedView.addEventListener('click', () => {
+                            expandedView.classList.remove('visible');
+                            animatedImage.style.position = 'fixed';
+                            animatedImage.style.top = `${startRect.top}px`; animatedImage.style.left = `${startRect.left}px`; animatedImage.style.width = `${startRect.width}px`; animatedImage.style.height = `${startRect.height}px`;
+                            expandedView.addEventListener('transitionend', () => expandedView.remove(), { once: true });
+                        }, { once: true });
+                    }
+                    galleryGrid.addEventListener('click', handleGridClick);
+                    galleryGrid.addEventListener('mouseover', e => { const item = e.target.closest('.gallery-item'); if (item) updateContent(item.dataset.id); });
+                    galleryGrid.addEventListener('mouseleave', () => updateContent(null));
+                })();
+
+                // --- SCRIPT PARA PHOTOGRAPHY & VIDEO ---
+                let loadPhotography = () => { };
+                (() => {
+                    let photoProjects = [];
+                    loadPhotography = (data) => {
+                        photoProjects = data;
+                        updateProjectDisplay();
+                    };
+                    const photoSection = document.getElementById('photography-video');
+                    if (!photoSection) return;
+                    let currentPhotoProjectIndex = 0, currentSlideshowImageIndex = 0, slideshowInterval;
+                    const header = document.querySelector('header.header');
+                    const slideshowBackground = photoSection.querySelector('.slideshow-background');
+                    const photoProjectTitle = photoSection.querySelector('#photo-project-title');
+                    const photoProjectDescription = photoSection.querySelector('#photo-project-description');
+                    const projectOverlayContent = photoSection.querySelector('.project-overlay-content');
+                    const prevPhotoButton = photoSection.querySelector('#prev-photo-project');
+                    const nextPhotoButton = photoSection.querySelector('#next-photo-project');
+                    const expandedPhotographyGrid = photoSection.querySelector('#photography-grid-expanded-view');
+                    const photographyGridContainer = expandedPhotographyGrid.querySelector('.photography-grid');
+                    const closeExpandedGridButton = expandedPhotographyGrid.querySelector('.close-expanded-grid-button');
+                    let expandedPhotoItemView = null;
+                    function updateProjectDisplay() {
+                        stopSlideshow();
+                        const project = photoProjects[currentPhotoProjectIndex];
+                        photoProjectTitle.textContent = project.title;
+                        photoProjectDescription.textContent = project.description;
+                        currentSlideshowImageIndex = 0;
+                        startSlideshow();
+                    }
+                    function startSlideshow() {
+                        if (slideshowInterval) clearInterval(slideshowInterval);
+                        function cycleImages() {
+                            const project = photoProjects[currentPhotoProjectIndex];
+                            const images = project.slideshowImages;
+                            const newImage = document.createElement('img');
+                            newImage.src = images[currentSlideshowImageIndex];
+                            slideshowBackground.innerHTML = '';
+                            slideshowBackground.appendChild(newImage);
+                            requestAnimationFrame(() => newImage.classList.add('active'));
+                            currentSlideshowImageIndex = (currentSlideshowImageIndex + 1) % images.length;
+                        }
+                        cycleImages();
+                        slideshowInterval = setInterval(cycleImages, 3000);
+                    }
+                    function stopSlideshow() { clearInterval(slideshowInterval); }
+                    function openExpandedGrid(project) {
+                        photographyGridContainer.innerHTML = '';
+                        project.gridImages.forEach((src, index) => {
+                            const gridItem = document.createElement('div');
+                            gridItem.className = 'grid-item';
+                            const img = document.createElement('img');
+                            img.src = src;
+                            img.alt = `Imagen del proyecto ${project.title} ${index + 1}`;
+                            gridItem.appendChild(img);
+                            photographyGridContainer.appendChild(gridItem);
+                            gridItem.addEventListener('click', () => openPhotoItemView(src));
+                            setTimeout(() => { gridItem.style.opacity = 1; gridItem.style.transform = 'scale(1)'; }, index * 100);
+                        });
+                        expandedPhotographyGrid.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        if (header) header.classList.add('header-hidden');
+                    }
+                    function closeExpandedGrid() {
+                        expandedPhotographyGrid.classList.remove('active');
+                        document.body.style.overflow = '';
+                        if (header) header.classList.remove('header-hidden');
+                        if (expandedPhotoItemView && expandedPhotoItemView.classList.contains('active')) { closePhotoItemView(); }
+                        setTimeout(() => photographyGridContainer.innerHTML = '', 500);
+                    }
+                    function openPhotoItemView(imageUrl) {
+                        if (!expandedPhotoItemView) {
+                            expandedPhotoItemView = document.createElement('div');
+                            expandedPhotoItemView.className = 'expanded-photo-item-view';
+                            expandedPhotoItemView.innerHTML = `<button class="close-expanded-photo-item-button">✕</button><img src="" alt="Imagen expandida">`;
+                            document.body.appendChild(expandedPhotoItemView);
+
+                            expandedPhotoItemView.querySelector('.close-expanded-photo-item-button').addEventListener('click', closePhotoItemView);
+                            expandedPhotoItemView.addEventListener('click', e => {
+                                if (e.target === expandedPhotoItemView) closePhotoItemView();
+                            });
+                        }
+
+                        expandedPhotoItemView.querySelector('img').src = imageUrl;
+                        expandedPhotoItemView.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+
+                        // Línea clave añadida: Oculta el header cuando la foto se expande
+                        if (header) header.classList.add('header-hidden');
+                    }
+                    function closePhotoItemView() {
+                        if (expandedPhotoItemView) {
+                            expandedPhotoItemView.classList.remove('active');
+
+                            // Espera a que la animación de salida termine antes de eliminar el elemento
+                            expandedPhotoItemView.addEventListener('transitionend', () => {
+                                if (expandedPhotoItemView) {
+                                    expandedPhotoItemView.remove(); // Elimina la ventana del DOM
+                                    expandedPhotoItemView = null;   // Resetea la variable
+                                }
+                            }, { once: true }); // El listener se ejecuta solo una vez
+
+                            // Restaura el scroll del cuerpo si la galería principal tampoco está activa
+                            if (!expandedPhotographyGrid.classList.contains('active')) {
+                                document.body.style.overflow = '';
+                            }
+                        }
+                    }
+                    projectOverlayContent.addEventListener('click', () => { stopSlideshow(); openExpandedGrid(photoProjects[currentPhotoProjectIndex]); });
+                    closeExpandedGridButton.addEventListener('click', closeExpandedGrid);
+                    nextPhotoButton.addEventListener('click', () => { currentPhotoProjectIndex = (currentPhotoProjectIndex + 1) % photoProjects.length; updateProjectDisplay(); });
+                    prevPhotoButton.addEventListener('click', () => { currentPhotoProjectIndex = (currentPhotoProjectIndex - 1 + photoProjects.length) % photoProjects.length; updateProjectDisplay(); });
+                })();
+
+                // --- SCRIPT PARA JUEGO DE SNAKE ---
+                (() => {
+                    const canvas = document.getElementById('snake-canvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    const fullscreenBtn = document.getElementById('fullscreen-btn');
+                    const gameWrapper = document.querySelector('.game-wrapper');
+                    const scoreDisplay = document.getElementById('snake-score-display');
+                    const gridSize = 20, canvasSize = 400, tileCount = canvasSize / gridSize, gameColor = 'white';
+                    let snake = [{ x: 10, y: 10 }], food = {}, score = 0, dx = 0, dy = 0, changingDirection = false, gameActive = true;
+                    function createFood() {
+                        food = { x: Math.floor(Math.random() * tileCount), y: Math.floor(Math.random() * tileCount) };
+                        snake.forEach(part => { if (part.x === food.x && part.y === food.y) createFood(); });
+                    }
+                    function drawSnake() {
+                        if (snake.length === 1) {
+                            ctx.fillStyle = gameColor; ctx.beginPath(); ctx.arc(snake[0].x * gridSize + gridSize / 2, snake[0].y * gridSize + gridSize / 2, (gridSize - 5) / 2, 0, 2 * Math.PI); ctx.fill();
+                        } else {
+                            ctx.strokeStyle = gameColor; ctx.lineWidth = gridSize - 5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                            ctx.beginPath(); ctx.moveTo(snake[0].x * gridSize + gridSize / 2, snake[0].y * gridSize + gridSize / 2);
+                            for (let i = 1; i < snake.length; i++) { ctx.lineTo(snake[i].x * gridSize + gridSize / 2, snake[i].y * gridSize + gridSize / 2); }
+                            ctx.stroke();
+                        }
+                    }
+                    function drawFood() { ctx.fillStyle = gameColor; ctx.beginPath(); ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 3, 0, 2 * Math.PI); ctx.fill(); }
+                    function advanceSnake() {
+                        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+                        snake.unshift(head);
+                        if (head.x === food.x && head.y === food.y) {
+                            score += 1;
+                            if (scoreDisplay) scoreDisplay.textContent = score;
+                            createFood();
+                        } else { snake.pop(); }
+                    }
+                    function clearCanvas() { ctx.fillStyle = 'black'; ctx.fillRect(0, 0, canvasSize, canvasSize); }
+                    function checkCollision() {
+                        if (snake[0].x < 0 || snake[0].x >= tileCount || snake[0].y < 0 || snake[0].y >= tileCount) return true;
+                        for (let i = 4; i < snake.length; i++) { if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true; }
+                        return false;
+                    }
+                    function main() {
+                        if (!gameActive) return;
+                        changingDirection = false;
+                        setTimeout(() => {
+                            clearCanvas(); drawFood(); advanceSnake(); drawSnake();
+                            if (checkCollision()) {
+                                gameActive = false;
+                                setTimeout(() => {
+                                    snake = [{ x: 10, y: 10 }];
+                                    score = 0;
+                                    if (scoreDisplay) scoreDisplay.textContent = score;
+                                    dx = 0; dy = 0;
+                                    gameActive = true;
+                                    createFood();
+                                    main();
+                                }, 1000);
+                                return;
+                            }
+                            main();
+                        }, 120);
+                    }
+                    function changeDirection(event) {
+                        const key = event.key;
+                        const keys = ["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"];
+                        if (keys.includes(key)) { event.preventDefault(); }
+                        if (changingDirection) return;
+                        const goingUp = dy === -1, goingDown = dy === 1, goingRight = dx === 1, goingLeft = dx === -1;
+                        if (key === "ArrowLeft" && !goingRight) { dx = -1; dy = 0; changingDirection = true; }
+                        if (key === "ArrowUp" && !goingDown) { dx = 0; dy = -1; changingDirection = true; }
+                        if (key === "ArrowRight" && !goingLeft) { dx = 1; dy = 0; changingDirection = true; }
+                        if (key === "ArrowDown" && !goingUp) { dx = 0; dy = 1; changingDirection = true; }
+                    }
+                    if (fullscreenBtn && gameWrapper) {
+                        fullscreenBtn.addEventListener('click', () => {
+                            if (gameWrapper.requestFullscreen) { gameWrapper.requestFullscreen(); }
+                            else if (gameWrapper.webkitRequestFullscreen) { gameWrapper.webkitRequestFullscreen(); }
+                            else if (gameWrapper.msRequestFullscreen) { gameWrapper.msRequestFullscreen(); }
+                        });
+                    }
+                    createFood();
+                    main();
+                    document.addEventListener("keydown", changeDirection);
+                })();
+
+                // --- SCRIPT PARA PORTAFOLIO DE APPS ---
+                let loadApps = () => { };
+                (() => {
+                    let appProjects = [];
+                    loadApps = (data) => {
+                        appProjects = data;
+                        renderIcons();
+                    };
+                    const iconGrid = document.getElementById('app-icon-grid');
+                    const slideshowOverlay = document.getElementById('app-slideshow-overlay');
+                    if (!iconGrid || !slideshowOverlay) return;
+                    const slideshowImage = document.getElementById('slideshow-image');
+                    const closeBtn = slideshowOverlay.querySelector('.close-slideshow-btn');
+                    const prevBtn = slideshowOverlay.querySelector('.slideshow-arrow.prev');
+                    const nextBtn = slideshowOverlay.querySelector('.slideshow-arrow.next');
+                    const header = document.querySelector('header.header');
+                    let currentProjectScreenshots = [], currentScreenshotIndex = 0;
+                    function renderIcons() { appProjects.forEach(p => { const div = document.createElement('div'); div.className = 'app-icon'; div.dataset.id = p.id; div.innerHTML = `<img src="${p.iconUrl}" alt="${p.name}" loading="lazy">`; iconGrid.appendChild(div); }); }
+                    function openSlideshow(projectId) {
+                        const project = appProjects.find(p => p.id === projectId);
+                        if (!project) return;
+                        currentProjectScreenshots = project.screenshots;
+                        currentScreenshotIndex = 0;
+                        updateSlideshowImage();
+                        slideshowOverlay.classList.add('active');
+                        if (header) header.classList.add('header-hidden');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    function closeSlideshow() {
+                        slideshowOverlay.classList.remove('active');
+                        if (header) header.classList.remove('header-hidden');
+                        document.body.style.overflow = '';
+                    }
+                    function updateSlideshowImage() {
+                        slideshowImage.classList.remove('visible');
+                        setTimeout(() => { slideshowImage.src = currentProjectScreenshots[currentScreenshotIndex]; slideshowImage.classList.add('visible'); }, 200);
+                    }
+                    function showNextImage() { currentScreenshotIndex = (currentScreenshotIndex + 1) % currentProjectScreenshots.length; updateSlideshowImage(); }
+                    function showPrevImage() { currentScreenshotIndex = (currentScreenshotIndex - 1 + currentProjectScreenshots.length) % currentProjectScreenshots.length; updateSlideshowImage(); }
+                    iconGrid.addEventListener('click', e => { const icon = e.target.closest('.app-icon'); if (icon) openSlideshow(icon.dataset.id); });
+                    if (closeBtn) closeBtn.addEventListener('click', closeSlideshow);
+                    if (nextBtn) nextBtn.addEventListener('click', showNextImage);
+                    if (prevBtn) prevBtn.addEventListener('click', showPrevImage);
+                })();
+
+                // --- SCRIPT PARA ANIMACIÓN FINAL DE DIGITAL MARKETING (CON COLORES ALEATORIOS) ---
+                (() => {
+                    const section = document.getElementById('digital-marketing');
+                    if (!section) return;
+
+                    const tooltip = document.getElementById('dm-global-tooltip') || (() => {
+                        const t = document.createElement('div');
+                        t.id = 'dm-global-tooltip';
+                        document.body.appendChild(t);
+                        return t;
+                    })();
+
+                    const centerTrigger = document.getElementById('dm-center-trigger');
+                    const allNodes = section.querySelectorAll('.dm-node');
+
+                    const colorPalette = ['#3b82f6', '#8b5cf6', '#ec4899', '#f97316', '#10b981', '#f59e0b', '#ef4444'];
+                    allNodes.forEach(node => {
+                        if (!node.classList.contains('level-0')) {
+                            const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                            node.style.backgroundColor = randomColor;
+                        }
+                    });
+
+                    let animationStarted = false;
+                    let animationTimeout;
+
+                    function startAnimation() {
+                        if (animationStarted) return;
+                        animationStarted = true;
+                        centerTrigger.style.cursor = 'default';
+                        clearTimeout(animationTimeout);
+
+                        const level1Nodes = section.querySelectorAll('.level-1');
+                        const level2Nodes = section.querySelectorAll('.level-2');
+                        const connectors = section.querySelectorAll('.dm-connector');
+
+                        setTimeout(() => { connectors.forEach(c => { if (c.parentElement.classList.contains('dm-branch')) c.classList.add('visible'); }); }, 200);
+                        setTimeout(() => { level1Nodes.forEach((n, i) => setTimeout(() => n.classList.add('visible'), i * 200)); }, 600);
+                        setTimeout(() => { connectors.forEach(c => { if (c.parentElement.classList.contains('dm-sub-branch')) c.classList.add('visible'); }); }, 1500);
+                        setTimeout(() => { level2Nodes.forEach((n, i) => setTimeout(() => n.classList.add('visible'), i * 150)); }, 1900);
+                        setTimeout(() => { allNodes.forEach(n => { n.classList.add('floating'); n.style.animationDelay = `-${Math.random() * 5}s`; }); }, 3000);
+                    }
+
+                    allNodes.forEach(node => {
+                        node.addEventListener('mouseenter', (e) => {
+                            const definition = e.currentTarget.dataset.definition;
+                            if (!definition) return;
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            tooltip.textContent = definition;
+                            tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
+                            tooltip.style.top = `${rect.top - tooltip.offsetHeight - 5}px`;
+                            tooltip.classList.add('visible');
+                        });
+                        node.addEventListener('mouseleave', () => {
+                            tooltip.classList.remove('visible');
+                        });
+                    });
+
+                    if (centerTrigger) {
+                        centerTrigger.addEventListener('click', startAnimation, { once: true });
+                    }
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !animationStarted) {
+                                animationTimeout = setTimeout(startAnimation, 5000);
+                            } else {
+                                clearTimeout(animationTimeout);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+
+                    observer.observe(section);
+                })();
+
+                // --- SCRIPT PARA EL FORMULARIO DE CONTACTO ---
+                (() => {
+                    const form = document.getElementById('contact-form');
+                    if (!form) return;
+                    const resultDiv = document.getElementById('form-result');
+                    const submitButton = form.querySelector('.send-button');
+                    const access_key = '7c9c0c16-efc6-4e7b-84b3-7134d13b9491';
+
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault();
+                        submitButton.disabled = true;
+                        submitButton.innerText = 'Enviando...';
+                        const formData = new FormData(form);
+                        const object = {};
+                        formData.forEach((value, key) => { object[key] = value; });
+                        object.access_key = access_key;
+                        object.subject = `Nueva solicitud de contacto de ${object.name}`;
+                        object.from_name = "Formulario de tu Página Web";
+                        fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify(object)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    resultDiv.className = 'success';
+                                    resultDiv.innerHTML = '¡Solicitud enviada con éxito! Gracias por contactarnos.';
+                                    form.reset();
+                                } else {
+                                    resultDiv.className = 'error';
+                                    resultDiv.innerHTML = `Error: ${data.message}. Por favor, inténtalo de nuevo.`;
+                                }
+                            })
+                            .catch(error => {
+                                resultDiv.className = 'error';
+                                resultDiv.innerHTML = 'Hubo un problema al enviar la solicitud. Por favor, revisa tu conexión a internet.';
+                            })
+                            .finally(() => {
+                                submitButton.disabled = false;
+                                submitButton.innerText = 'Enviar Solicitud';
+                                setTimeout(() => { resultDiv.style.display = 'none'; }, 6000);
+                            });
+                    });
+                })();
+            });
+            // --- GLOBAL CONTENT LOADER ---
+            (async () => {
+                try {
+                    const res = await fetch('/api/content');
+                    if (!res.ok) throw new Error('API not available');
+                    const data = await res.json();
+
+                    // Load each section
+                    if (data.settings) {
+                        document.title = data.settings.title;
+                        document.querySelector('meta[name="description"]').setAttribute('content', data.settings.description);
+                    }
+                    if (data.graphicDesign) loadGraphicDesign(data.graphicDesign);
+                    if (data.photographyVideo) loadPhotography(data.photographyVideo);
+                    if (data.appSoftware) loadApps(data.appSoftware);
+
+                    console.log('Content loaded dynamically');
+                } catch (e) {
+                    console.warn('Falling back to static/internal data', e);
+                    // Fallback logic handled by empty/default initializations if needed
+                }
+            })();
+        </script>
+</body>
+
+</html>

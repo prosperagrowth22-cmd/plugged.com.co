@@ -1,0 +1,208 @@
+{
+  "graphicDesign": {
+    "title": "Diseño Gráfico",
+    "description": "Una selección de proyectos de identidad visual, branding y diseño digital. Pasa el cursor sobre un proyecto para ver su descripción o haz clic para conocer todos los detalles.",
+    "projects": [
+      {
+        "id": "p1",
+        "client": "Web Design",
+        "year": 2024,
+        "services": [
+          "Web Design",
+          "Development"
+        ],
+        "description": "Proyecto de diseño web enfocado en la usabilidad y estética moderna.",
+        "thumbnailUrl": "images/gallery/plugged_01.jpg"
+      },
+      {
+        "id": "p2",
+        "client": "Identity",
+        "year": 2023,
+        "services": [
+          "Branding",
+          "Logofolio"
+        ],
+        "description": "Desarrollo de identidad visual corporativa completa.",
+        "thumbnailUrl": "images/gallery/plugged_02.jpg"
+      },
+      {
+        "id": "p3",
+        "client": "Marketing",
+        "year": 2024,
+        "services": [
+          "SEO",
+          "Digital Ads"
+        ],
+        "description": "Estrategias de marketing digital para crecimiento exponencial.",
+        "thumbnailUrl": "images/gallery/plugged_03.jpg"
+      },
+      {
+        "id": "p4",
+        "client": "Editorial",
+        "year": 2022,
+        "services": [
+          "Art Direction",
+          "Layout"
+        ],
+        "description": "Diseño editorial para publicaciones impresas y digitales.",
+        "thumbnailUrl": "images/gallery/plugged_04.jpg"
+      },
+      {
+        "id": "p5",
+        "client": "Packaging",
+        "year": 2023,
+        "services": [
+          "Packaging Design"
+        ],
+        "description": "Diseño de empaques innovadores y sostenibles.",
+        "thumbnailUrl": "images/gallery/plugged_05.jpg"
+      },
+      {
+        "id": "p6",
+        "client": "Mobile App",
+        "year": 2024,
+        "services": [
+          "UX/UI Design"
+        ],
+        "description": "Interfaz intuitiva para aplicaciones móviles de alta complejidad.",
+        "thumbnailUrl": "images/gallery/plugged_06.jpg"
+      },
+      {
+        "id": "p7",
+        "client": "Video Production",
+        "year": 2025,
+        "services": [
+          "Motion Graphics"
+        ],
+        "description": "Producción audiovisual y animaciones dinámicas.",
+        "thumbnailUrl": "images/gallery/plugged_07.jpg"
+      },
+      {
+        "id": "p8",
+        "client": "Social Media",
+        "year": 2023,
+        "services": [
+          "Content Creation"
+        ],
+        "description": "Estrategias de contenido para redes sociales.",
+        "thumbnailUrl": "images/gallery/plugged_08.jpg"
+      },
+      {
+        "id": "p9",
+        "client": "Architecture",
+        "year": 2024,
+        "services": [
+          "3D Rendering"
+        ],
+        "description": "Visualización arquitectónica de alta fidelidad.",
+        "thumbnailUrl": "images/gallery/plugged_09.jpg"
+      },
+      {
+        "id": "p10",
+        "client": "Craft Beer",
+        "year": 2022,
+        "services": [
+          "Label Design"
+        ],
+        "description": "Diseño de etiquetas para productos artesanales.",
+        "thumbnailUrl": "images/gallery/plugged_010.jpg"
+      }
+    ]
+  },
+  "photographyVideo": [
+    {
+      "id": "proj1",
+      "title": "Expedición Andes",
+      "description": "Un viaje fotográfico a través de los majestuosos paisajes andinos.",
+      "slideshowImages": [
+        "https://images.unsplash.com/photo-1577742013894-319b940e4f24?q=80&w=1200",
+        "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1200"
+      ],
+      "gridImages": [
+        "https://images.unsplash.com/photo-1577742013894-319b940e4f24?q=80&w=1000",
+        "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1000",
+        "https://images.unsplash.com/photo-1454559385906-8961730f2ee7?q=80&w=1000",
+        "https://images.unsplash.com/photo-1551632811-552783d10c0e?q=80&w=1000"
+      ]
+    },
+    {
+      "id": "proj2",
+      "title": "Urbanismo Nocturno",
+      "description": "Capturando la vibrante energía de la ciudad después del anochecer.",
+      "slideshowImages": [
+        "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1200",
+        "https://images.unsplash.com/photo-1531932379297-846835b69043?q=80&w=1200"
+      ],
+      "gridImages": [
+        "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1000",
+        "https://images.unsplash.com/photo-1531932379297-846835b69043?q=80&w=1000",
+        "https://images.unsplash.com/photo-1504620885234-a8767e8a4a34?q=80&w=1000",
+        "https://images.unsplash.com/photo-1444723121867-7a241cacace9?q=80&w=1000"
+      ]
+    },
+    {
+      "id": "photo-1771749535080",
+      "title": "New Photography Project",
+      "description": "Project description goes here.",
+      "slideshowImages": [
+        "images/photography/default.jpg"
+      ],
+      "gridImages": [
+        "images/photography/default.jpg"
+      ]
+    }
+  ],
+  "appSoftware": [
+    {
+      "id": "app1",
+      "name": "Quantum ERP",
+      "iconUrl": "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=300",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=1200",
+        "https://images.unsplash.com/photo-1586445349434-5d3c81435293?q=80&w=1200"
+      ]
+    },
+    {
+      "id": "app2",
+      "name": "Connecta CRM",
+      "iconUrl": "https://images.unsplash.com/photo-1611095562057-2e70198c6b05?q=80&w=300",
+      "screenshots": [
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200",
+        "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200"
+      ]
+    },
+    {
+      "id": "app-1771749586649",
+      "name": "New App",
+      "iconUrl": "images/apps/default-icon.png",
+      "screenshots": [
+        "images/apps/default-screen.png"
+      ]
+    }
+  ],
+  "digitalMarketing": {
+    "center": {
+      "title": "DIGITAL<br>MARKETING",
+      "definition": "El conjunto de estrategias para promocionar una marca en internet."
+    },
+    "nodes": [
+      {
+        "id": "n1",
+        "level": 1,
+        "title": "Search Engine Marketing",
+        "definition": "Atrae tráfico de calidad a tu web a través de buscadores como Google."
+      },
+      {
+        "id": "n2",
+        "level": 2,
+        "title": "SEO",
+        "definition": "Optimización para que tu web aparezca de forma orgánica (gratis) en los primeros resultados."
+      }
+    ]
+  },
+  "settings": {
+    "title": "Plugged - The Digital Revolution",
+    "description": "We design and develop to bring progressive brands to life through focused and functional identities and digital solutions.",
+    "contactEmail": "plugged.co@gmail.com"
+  }
+}

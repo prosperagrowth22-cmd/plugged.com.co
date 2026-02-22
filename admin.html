@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Plugged</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold tracking-tight">Plugged <span class="text-blue-500">Admin</span></h1>
+            <div class="flex gap-4">
+                <button onclick="saveChanges()"
+                    class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-semibold transition">Save All
+                    Changes</button>
+                <a href="/" target="_blank" class="glass px-6 py-2 rounded-full hover:bg-white/10 transition">View
+                    Site</a>
+            </div>
+        </header>
+
+        <nav class="flex gap-8 border-b border-white/10 mb-8">
+            <button onclick="switchTab('general')" class="tab-btn active px-4 py-2 font-medium transition"
+                id="tab-general">General</button>
+            <button onclick="switchTab('graphic')" class="tab-btn px-4 py-2 font-medium transition"
+                id="tab-graphic">Graphic Design</button>
+            <button onclick="switchTab('photo')" class="tab-btn px-4 py-2 font-medium transition"
+                id="tab-photo">Photography</button>
+            <button onclick="switchTab('apps')" class="tab-btn px-4 py-2 font-medium transition"
+                id="tab-apps">Apps</button>
+        </nav>
+
+        <main id="admin-content">
+            <!-- GENERAL TAB -->
+            <div id="section-general" class="tab-section">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass p-6 rounded-2xl">
+                        <label class="block text-sm text-gray-400 mb-2">Site Title</label>
+                        <input type="text" id="site-title"
+                            class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="glass p-6 rounded-2xl">
+                        <label class="block text-sm text-gray-400 mb-2">Contact Email</label>
+                        <input type="text" id="contact-email"
+                            class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="glass p-6 rounded-2xl md:col-span-2">
+                        <label class="block text-sm text-gray-400 mb-2">Meta Description</label>
+                        <textarea id="site-description" rows="3"
+                            class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:border-blue-500"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRAPHIC DESIGN TAB -->
+            <div id="section-graphic" class="tab-section hidden">
+                <div class="glass p-6 rounded-2xl mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Graphic Design Hero</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Section Title</label>
+                            <input type="text" id="gd-title"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg p-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Summary Text</label>
+                            <textarea id="gd-desc" rows="2"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg p-3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="gd-project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project cards will go here -->
+                </div>
+                <button onclick="addGraphicProject()"
+                    class="mt-8 border border-dashed border-white/20 hover:border-blue-500 w-full p-4 rounded-xl text-gray-400 hover:text-blue-500 transition">+
+                    Add New Project</button>
+            </div>
+
+            <!-- PHOTO TAB -->
+            <div id="section-photo" class="tab-section hidden">
+                <div id="photo-project-list" class="grid grid-cols-1 gap-8">
+                    <!-- Photo projects will go here -->
+                </div>
+                <button onclick="addPhotoProject()"
+                    class="mt-8 border border-dashed border-white/20 hover:border-blue-500 w-full p-4 rounded-xl text-gray-400 hover:text-blue-500 transition">+
+                    Add New Photo Project</button>
+            </div>
+
+            <!-- APPS TAB -->
+            <div id="section-apps" class="tab-section hidden">
+                <div id="apps-project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- App projects will go here -->
+                </div>
+                <button onclick="addAppProject()"
+                    class="mt-8 border border-dashed border-white/20 hover:border-blue-500 w-full p-4 rounded-xl text-gray-400 hover:text-blue-500 transition">+
+                    Add New App Project</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let contentData = null;
+
+        async function loadContent() {
+            const res = await fetch('/api/content');
+            contentData = await res.json();
+            populateForm();
+        }
+
+        function populateForm() {
+            if (!contentData) return;
+            document.getElementById('site-title').value = contentData.settings.title;
+            document.getElementById('contact-email').value = contentData.settings.contactEmail;
+            document.getElementById('site-description').value = contentData.settings.description;
+
+            document.getElementById('gd-title').value = contentData.graphicDesign.title;
+            document.getElementById('gd-desc').value = contentData.graphicDesign.description;
+
+            renderGraphicProjects();
+            renderPhotoProjects();
+            renderAppsProjects();
+        }
+
+        function renderGraphicProjects() {
+            const container = document.getElementById('gd-project-list');
+            container.innerHTML = contentData.graphicDesign.projects.map((p, i) => `
+                <div class="glass p-4 rounded-xl relative group">
+                    <img src="${p.thumbnailUrl}" class="w-full h-32 object-cover rounded-lg mb-4">
+                    <input type="text" value="${p.client}" onchange="updateProject(${i}, 'client', this.value)" class="w-full bg-transparent border-b border-white/10 mb-2 font-bold p-1">
+                    <input type="text" value="${p.services.join(', ')}" onchange="updateProject(${i}, 'services', this.value)" class="w-full bg-transparent text-xs text-gray-400 p-1 mb-2">
+                    <textarea onchange="updateProject(${i}, 'description', this.value)" class="w-full bg-transparent text-sm text-gray-300 h-20">${p.description}</textarea>
+                    <button onclick="deleteProject(${i})" class="absolute top-2 right-2 bg-red-500/80 hover:bg-red-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateProject(index, field, value) {
+            if (field === 'services') value = value.split(',').map(s => s.trim());
+            contentData.graphicDesign.projects[index][field] = value;
+        }
+
+        function deleteProject(index) {
+            if (confirm('Delete this project?')) {
+                contentData.graphicDesign.projects.splice(index, 1);
+                renderGraphicProjects();
+            }
+        }
+
+        function addGraphicProject() {
+            contentData.graphicDesign.projects.push({
+                id: 'p' + Date.now(),
+                client: 'New Client',
+                year: new Date().getFullYear(),
+                services: ['Branding'],
+                description: 'Project description goes here.',
+                thumbnailUrl: 'images/gallery/plugged_01.jpg'
+            });
+            renderGraphicProjects();
+        }
+
+        function renderPhotoProjects() {
+            const container = document.getElementById('photo-project-list');
+            container.innerHTML = contentData.photographyVideo.map((p, i) => `
+                <div class="glass p-6 rounded-2xl relative group">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-1">
+                            <label class="block text-xs text-gray-400 mb-1">Title</label>
+                            <input type="text" value="${p.title}" onchange="updatePhoto(${i}, 'title', this.value)" class="w-full bg-white/5 border border-white/10 rounded p-2 mb-4">
+                            <label class="block text-xs text-gray-400 mb-1">Description</label>
+                            <textarea onchange="updatePhoto(${i}, 'description', this.value)" class="w-full bg-white/5 border border-white/10 rounded p-2 h-32 mb-4">${p.description}</textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs text-gray-400 mb-1">Slideshow Images (one per line)</label>
+                            <textarea onchange="updatePhoto(${i}, 'slideshowImages', this.value)" class="w-full bg-white/5 border border-white/10 rounded p-2 h-24 mb-4 font-mono text-xs">${p.slideshowImages.join('\n')}</textarea>
+                            <label class="block text-xs text-gray-400 mb-1">Grid Images (one per line)</label>
+                            <textarea onchange="updatePhoto(${i}, 'gridImages', this.value)" class="w-full bg-white/5 border border-white/10 rounded p-2 h-24 font-mono text-xs">${p.gridImages.join('\n')}</textarea>
+                        </div>
+                    </div>
+                    <button onclick="deletePhoto(${i})" class="absolute top-2 right-2 bg-red-500/80 hover:bg-red-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updatePhoto(index, field, value) {
+            if (field === 'slideshowImages' || field === 'gridImages') value = value.split('\n').map(s => s.trim()).filter(s => s !== '');
+            contentData.photographyVideo[index][field] = value;
+        }
+
+        function deletePhoto(index) {
+            if (confirm('Delete this photo project?')) {
+                contentData.photographyVideo.splice(index, 1);
+                renderPhotoProjects();
+            }
+        }
+
+        function addPhotoProject() {
+            contentData.photographyVideo.push({
+                id: 'photo-' + Date.now(),
+                title: 'New Photography Project',
+                description: 'Project description goes here.',
+                slideshowImages: ['images/photography/default.jpg'],
+                gridImages: ['images/photography/default.jpg']
+            });
+            renderPhotoProjects();
+        }
+
+        function renderAppsProjects() {
+            const container = document.getElementById('apps-project-list');
+            container.innerHTML = contentData.appSoftware.map((p, i) => `
+                <div class="glass p-4 rounded-xl relative group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="${p.iconUrl}" class="w-12 h-12 rounded-xl object-cover bg-white/10">
+                        <input type="text" value="${p.name}" onchange="updateApp(${i}, 'name', this.value)" class="flex-1 bg-transparent border-b border-white/10 font-bold p-1">
+                    </div>
+                    <label class="block text-xs text-gray-400 mb-1">Icon URL</label>
+                    <input type="text" value="${p.iconUrl}" onchange="updateApp(${i}, 'iconUrl', this.value)" class="w-full bg-white/5 border border-white/10 rounded p-1 text-xs mb-3">
+                    <label class="block text-xs text-gray-400 mb-1">Screenshots (one per line)</label>
+                    <textarea onchange="updateApp(${i}, 'screenshots', this.value)" class="w-full bg-white/5 border border-white/10 rounded p-2 h-32 font-mono text-xs">${p.screenshots.join('\n')}</textarea>
+                    <button onclick="deleteApp(${i})" class="absolute top-2 right-2 bg-red-500/80 hover:bg-red-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateApp(index, field, value) {
+            if (field === 'screenshots') value = value.split('\n').map(s => s.trim()).filter(s => s !== '');
+            contentData.appSoftware[index][field] = value;
+        }
+
+        function deleteApp(index) {
+            if (confirm('Delete this app project?')) {
+                contentData.appSoftware.splice(index, 1);
+                renderAppsProjects();
+            }
+        }
+
+        function addAppProject() {
+            contentData.appSoftware.push({
+                id: 'app-' + Date.now(),
+                name: 'New App',
+                iconUrl: 'images/apps/default-icon.png',
+                screenshots: ['images/apps/default-screen.png']
+            });
+            renderAppsProjects();
+        }
+
+        async function saveChanges() {
+            contentData.settings.title = document.getElementById('site-title').value;
+            contentData.settings.contactEmail = document.getElementById('contact-email').value;
+            contentData.settings.description = document.getElementById('site-description').value;
+            contentData.graphicDesign.title = document.getElementById('gd-title').value;
+            contentData.graphicDesign.description = document.getElementById('gd-desc').value;
+
+            const res = await fetch('/api/content', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(contentData, null, 2)
+            });
+
+            if (res.ok) {
+                alert('Changes saved successfully!');
+            } else {
+                alert('Failed to save changes.');
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section-' + tab).classList.remove('hidden');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
+
+        loadContent();
+    </script>
+</body>
+
+</html>
